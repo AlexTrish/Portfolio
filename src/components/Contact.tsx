@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
-import emailjs from 'emailjs-com'; // Import EmailJS
+import emailjs from 'emailjs-com';
 
 type SocialLink = {
   id: number;
