@@ -37,7 +37,6 @@ const projects: Project[] = [
     description: "A roguelike-style game in the DnD universe. [Unreleased]",
     image: DangRogue,
     tags: ["Gadot", "GDScript", "Lua"],
-    liveUrl: "https://example.com"
   }
 ];
 
