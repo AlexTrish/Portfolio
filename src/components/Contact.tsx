@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
+import emailjs from 'emailjs-com'; // Import EmailJS
 
 type SocialLink = {
   id: number;
@@ -37,10 +38,32 @@ export default function Contact() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formState);
-    setFormState({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        'service_peej1zo',
+        'template_f0jaqp6',
+        {
+          from_name: formState.name,
+          from_email: formState.email,
+          message: formState.message,
+        },
+        'XBoBj_IpOnDN4V3TK'
+      );
+      setSuccessMessage('Сообщение успешно отправлено!');
+      setFormState({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Ошибка отправки сообщения:', error);
+      setSuccessMessage('Не удалось отправить сообщение. Попробуйте снова.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -152,13 +175,19 @@ export default function Contact() {
 
               <motion.button
                 type="submit"
-                className="w-full bg-neon text-dark font-mono py-4 px-8 flex items-center justify-center space-x-2 hover:bg-white transition-colors"
+                disabled={isSubmitting}
+                className={`w-full bg-neon text-dark font-mono py-4 px-8 flex items-center justify-center space-x-2 hover:bg-white transition-colors ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span>SEND MESSAGE</span>
+                <span>{isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}</span>
                 <Send className="w-4 h-4" />
               </motion.button>
+              {successMessage && (
+                <p className="text-center text-neon font-mono mt-4">{successMessage}</p>
+              )}
             </form>
           </motion.div>
         </div>
