@@ -1,33 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Hero from './components/Hero';
-import About from './components/About';
 import Projects from './components/Projects';
+import About from './components/About';
+import Approach from './components/Approach';
 import Contact from './components/Contact';
+import EasterEgg from './components/EasterEgg';
+import CustomCursor from './components/CustomCursor';
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [keySequence, setKeySequence] = useState('');
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
+    const handleKeyPress = (e: KeyboardEvent) => {
+      setKeySequence(prev => {
+        const newSequence = (prev + e.key).slice(-4);
+        if (newSequence === '1337') {
+          setShowEasterEgg(true);
+          return '';
+        }
+        return newSequence;
+      });
+    };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+    window.addEventListener('keypress', handleKeyPress);
+    return () => window.removeEventListener('keypress', handleKeyPress);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-      <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-      <Hero />
-      <About />
-      <Projects />
-      <Contact />
-    </div>
+    <>
+      <CustomCursor />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="bg-dark min-h-screen text-white"
+      >
+        <Hero />
+        <Projects />
+        <About />
+        <Approach />
+        <Contact />
+      </motion.div>
+
+      <AnimatePresence>
+        {showEasterEgg && (
+          <EasterEgg onClose={() => setShowEasterEgg(false)} />
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 

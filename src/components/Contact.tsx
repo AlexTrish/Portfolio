@@ -1,97 +1,172 @@
 import { motion } from 'framer-motion';
-import { useForm, ValidationError, FormspreeProvider } from '@formspree/react';
-import { Send, CheckCircle } from 'lucide-react';
+import { Mail, Github, Linkedin, Send, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
 
-const ContactForm = () => {
-  const [state, handleSubmit] = useForm("xyyqzgkj");
-
-  return (
-    <>
-      {state.succeeded ? (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-green-50 dark:bg-green-900 p-6 rounded-lg text-center"
-        >
-          <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-green-900 dark:text-green-100 mb-2">
-            Message Sent!
-          </h3>
-          <p className="text-green-700 dark:text-green-200">
-            Thanks for reaching out. I'll get back to you soon!
-          </p>
-        </motion.div>
-      ) : (
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          onSubmit={handleSubmit}
-          className="space-y-6"
-        >
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Email Address
-            </label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              required
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-            />
-            <ValidationError prefix="Email" field="email" errors={state.errors} />
-          </div>
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              rows={4}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-            />
-            <ValidationError prefix="Message" field="message" errors={state.errors} />
-          </div>
-          <button
-            type="submit"
-            disabled={state.submitting}
-            className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-rust-500 dark:bg-gray-700 text-white rounded-lg font-medium hover:bg-rust-600 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <Send className="w-5 h-5" />
-            <span>Send Message</span>
-          </button>
-        </motion.form>
-      )}
-    </>
-  );
+type SocialLink = {
+  id: number;
+  name: string;
+  url: string;
+  icon: JSX.Element;
 };
 
-export default function Contact() {
-  return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Get in Touch</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Have a question or want to work together? Feel free to reach out!
-          </p>
-        </motion.div>
+const socialLinks: SocialLink[] = [
+  {
+    id: 1,
+    name: "GitHub",
+    url: "https://github.com/AlexTrish",
+    icon: <Github className="w-6 h-6" />,
+  },
+  // {
+  //   id: 2,
+  //   name: "LinkedIn",
+  //   url: "https://linkedin.com",
+  //   icon: <Linkedin className="w-6 h-6" />,
+  // },
+  {
+    id: 2,
+    name: "Email",
+    url: "mailto:alextrishwork@gmail.com",
+    icon: <Mail className="w-6 h-6" />,
+  },
+];
 
-        <div className="max-w-lg mx-auto">
-          <FormspreeProvider project="xyyqzgkj">
-            <ContactForm />
-          </FormspreeProvider>
+export default function Contact() {
+  const [formState, setFormState] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submitted:', formState);
+    setFormState({ name: '', email: '', message: '' });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormState(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  return (
+    <section className="min-h-screen py-20 px-4 md:px-8 relative overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="max-w-6xl mx-auto"
+      >
+        <h2 className="text-5xl md:text-6xl font-sans text-white mb-12">
+          <span className="text-neon">/</span> CONTACT
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div className="space-y-4">
+              <h3 className="text-2xl font-sans text-white">Let's Connect</h3>
+              <p className="text-gray-400 font-mono">
+                Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <h4 className="text-xl font-sans text-white">Find me on</h4>
+              <div className="flex flex-col space-y-4">
+                {socialLinks.map(link => (
+                  <motion.a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-4 text-neon hover:text-white transition-colors group"
+                    whileHover={{ x: 10 }}
+                  >
+                    <span className="w-8 h-8 border border-current rounded-full flex items-center justify-center">
+                      {link.icon}
+                    </span>
+                    <span className="font-mono">{link.name}</span>
+                    <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="name" className="block text-neon font-mono text-sm">
+                  NAME
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formState.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-black/50 border border-neon/20 rounded-none px-4 py-3 text-white font-mono focus:outline-none focus:border-neon transition-colors"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="email" className="block text-neon font-mono text-sm">
+                  EMAIL
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-black/50 border border-neon/20 rounded-none px-4 py-3 text-white font-mono focus:outline-none focus:border-neon transition-colors"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="block text-neon font-mono text-sm">
+                  MESSAGE
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formState.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full bg-black/50 border border-neon/20 rounded-none px-4 py-3 text-white font-mono focus:outline-none focus:border-neon transition-colors resize-none"
+                />
+              </div>
+
+              <motion.button
+                type="submit"
+                className="w-full bg-neon text-dark font-mono py-4 px-8 flex items-center justify-center space-x-2 hover:bg-white transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span>SEND MESSAGE</span>
+                <Send className="w-4 h-4" />
+              </motion.button>
+            </form>
+          </motion.div>
         </div>
+      </motion.div>
+
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-0 w-48 h-48 bg-neon opacity-5 rounded-full filter blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-neon opacity-5 rounded-full filter blur-3xl" />
       </div>
     </section>
   );
