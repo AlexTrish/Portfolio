@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { ExternalLink, Github, Globe } from 'lucide-react';
-import '../img/ChemG.png';
-import '../img/YaCalc.png';
-import '../img/DangRogue.png';
+import ChemG from '../img/ChemG.png';
+import YaCalc from '../img/YaCalc.png';
+import DangRogue from '../img/DangRogue.png';
 
 type Project = {
   id: number;
@@ -20,14 +20,14 @@ const projects: Project[] = [
     id: 1,
     title: "ChemG",
     description: "Program for fast learning with AI technology. [Unreleased]",
-    image: "/src/img/ChemG.png",
+    image: ChemG,
     tags: ["Tauri", "TypeScript", "Tailwind"],
   },
   {
     id: 2,
     title: "YaCalc",
     description: "A handy extension for quick calculation, designed to simplify and speed up your work.",
-    image: "/src/img/YaCalc.png",
+    image: YaCalc,
     tags: ["HTML5", "CSS3", "JavaScript"],
     githubUrl: "https://github.com/AlexTrish/YaCalc"
   },
@@ -35,7 +35,7 @@ const projects: Project[] = [
     id: 3,
     title: "DangRogue",
     description: "A roguelike-style game in the DnD universe. [Unreleased]",
-    image: "/src/img/DangRogue.png",
+    image: DangRogue,
     tags: ["Gadot", "GDScript", "Lua"],
     liveUrl: "https://example.com"
   }
