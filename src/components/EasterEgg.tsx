@@ -22,7 +22,7 @@ export default function MatrixRain({ onClose }: { onClose: () => void }) {
       drops[i] = 1;
     }
 
-    const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789';
+    const chars = 'ΑαΒβΓγ&ΔδΕεΖζΗηΘθΙιΚκΛλΜμΝνΞξΟοΠπΡρΣσςΤτΥυΦφΧχΨψΩω&ȜǷÞÐÆ0123456789';
 
     function draw() {
       context.fillStyle = 'rgba(0, 0, 0, 0.05)';

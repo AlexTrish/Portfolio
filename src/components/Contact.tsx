@@ -2,12 +2,19 @@ import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
+import Alert from './Alert';
 
 type SocialLink = {
   id: number;
   name: string;
   url: string;
   icon: JSX.Element;
+};
+
+type AlertState = {
+  type: 'success' | 'error' | 'warning';
+  message: string;
+  isVisible: boolean;
 };
 
 const socialLinks: SocialLink[] = [
@@ -17,12 +24,6 @@ const socialLinks: SocialLink[] = [
     url: "https://github.com/AlexTrish",
     icon: <Github className="w-6 h-6" />,
   },
-  // {
-  //   id: 2,
-  //   name: "LinkedIn",
-  //   url: "https://linkedin.com",
-  //   icon: <Linkedin className="w-6 h-6" />,
-  // },
   {
     id: 2,
     name: "Email",
@@ -39,10 +40,61 @@ export default function Contact() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [alert, setAlert] = useState<AlertState>({
+    type: 'success',
+    message: '',
+    isVisible: false,
+  });
+
+  const showAlert = (type: AlertState['type'], message: string) => {
+    setAlert({ type, message, isVisible: true });
+  };
+
+  const hideAlert = () => {
+    setAlert(prev => ({ ...prev, isVisible: false }));
+  };
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = (): boolean => {
+    if (!formState.name.trim()) {
+      showAlert('warning', 'Please enter your name');
+      return false;
+    }
+
+    if (!formState.email.trim()) {
+      showAlert('error', 'Email address is required');
+      return false;
+    }
+
+    if (!validateEmail(formState.email)) {
+      showAlert('error', 'Please enter a valid email address');
+      return false;
+    }
+
+    if (!formState.message.trim()) {
+      showAlert('warning', 'Please enter your message');
+      return false;
+    }
+
+    if (formState.message.trim().length < 10) {
+      showAlert('warning', 'Message should be at least 10 characters long');
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -56,25 +108,41 @@ export default function Contact() {
         },
         'XBoBj_IpOnDN4V3TK'
       );
-      setSuccessMessage('Сообщение успешно отправлено!');
+      
+      showAlert('success', 'Message sent successfully! I\'ll get back to you soon.');
       setFormState({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Ошибка отправки сообщения:', error);
-      setSuccessMessage('Не удалось отправить сообщение. Попробуйте снова.');
+      console.error('Error sending message:', error);
+      showAlert('error', 'Failed to send message. Please try again or contact me directly.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormState(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }));
+
+    // Real-time email validation
+    if (name === 'email' && value && !validateEmail(value)) {
+      showAlert('warning', 'Please enter a valid email format');
+    } else if (name === 'email' && value && validateEmail(value)) {
+      hideAlert();
+    }
   };
 
   return (
     <section className="min-h-screen py-20 px-4 md:px-8 relative overflow-hidden">
+      <Alert
+        type={alert.type}
+        message={alert.message}
+        isVisible={alert.isVisible}
+        onClose={hideAlert}
+      />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -130,9 +198,9 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-neon font-mono text-sm">
-                  NAME
+                  NAME *
                 </label>
-                <input
+                <motion.input
                   type="text"
                   id="name"
                   name="name"
@@ -140,14 +208,15 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full bg-black/50 border border-neon/20 rounded-none px-4 py-3 text-white font-mono focus:outline-none focus:border-neon transition-colors"
+                  whileFocus={{ scale: 1.02 }}
                 />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="email" className="block text-neon font-mono text-sm">
-                  EMAIL
+                  EMAIL *
                 </label>
-                <input
+                <motion.input
                   type="email"
                   id="email"
                   name="email"
@@ -155,14 +224,15 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full bg-black/50 border border-neon/20 rounded-none px-4 py-3 text-white font-mono focus:outline-none focus:border-neon transition-colors"
+                  whileFocus={{ scale: 1.02 }}
                 />
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="message" className="block text-neon font-mono text-sm">
-                  MESSAGE
+                  MESSAGE *
                 </label>
-                <textarea
+                <motion.textarea
                   id="message"
                   name="message"
                   value={formState.message}
@@ -170,6 +240,7 @@ export default function Contact() {
                   required
                   rows={5}
                   className="w-full bg-black/50 border border-neon/20 rounded-none px-4 py-3 text-white font-mono focus:outline-none focus:border-neon transition-colors resize-none"
+                  whileFocus={{ scale: 1.02 }}
                 />
               </div>
 
@@ -179,15 +250,12 @@ export default function Contact() {
                 className={`w-full bg-neon text-dark font-mono py-4 px-8 flex items-center justify-center space-x-2 hover:bg-white transition-colors ${
                   isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               >
                 <span>{isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}</span>
                 <Send className="w-4 h-4" />
               </motion.button>
-              {successMessage && (
-                <p className="text-center text-neon font-mono mt-4">{successMessage}</p>
-              )}
             </form>
           </motion.div>
         </div>

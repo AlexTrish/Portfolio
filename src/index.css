@@ -2,22 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  cursor: none;
+/* Hide default cursor on desktop */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+  
+  /* Show cursor on form elements for better UX */
+  input, textarea, select {
+    cursor: text !important;
+  }
+  
+  button, a, [role="button"] {
+    cursor: none !important;
+  }
 }
 
+/* Show default cursor on mobile/touch devices */
 @media (pointer: coarse) {
   * {
-    cursor: auto;
+    cursor: auto !important;
   }
   
   .custom-cursor {
-    display: none;
+    display: none !important;
   }
 }
 
-@media (max-width: 768px) {
-  .custom-cursor {
-    display: none;
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(57, 255, 20, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(57, 255, 20, 0.5);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(57, 255, 20, 0.2);
+  color: #39FF14;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(57, 255, 20, 0.5);
+  outline-offset: 2px;
+}
+
+/* Prevent text selection on interactive elements */
+button, .cursor-pointer {
+  user-select: none;
+}
+
+/* Improve font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background: #0A0A0A;
+}
+
+/* Subtle backdrop blur for better text readability */
+section {
+  position: relative;
+  backdrop-filter: blur(0.5px);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  canvas {
+    display: none !important;
   }
 }

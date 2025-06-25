@@ -7,6 +7,7 @@ import Approach from './components/Approach';
 import Contact from './components/Contact';
 import EasterEgg from './components/EasterEgg';
 import CustomCursor from './components/CustomCursor';
+import AnimatedBackdrop from './components/AnimatedBackdrop';
 
 function App() {
   const [showEasterEgg, setShowEasterEgg] = useState(false);
@@ -30,12 +31,13 @@ function App() {
 
   return (
     <>
+      <AnimatedBackdrop />
       <CustomCursor />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="bg-dark min-h-screen text-white"
+        transition={{ duration: 0.8 }}
+        className="relative z-10 min-h-screen text-white"
       >
         <Hero />
         <Projects />
