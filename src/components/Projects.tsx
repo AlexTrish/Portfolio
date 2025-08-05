@@ -4,6 +4,9 @@ import { ExternalLink, Github, Globe } from 'lucide-react';
 import ChemG from '../img/ChemG.png';
 import YaCalc from '../img/YaCalc.png';
 import DangRogue from '../img/DangRogue.png';
+import Elidu from '../img/Elidu.png'
+import Genome from '../img/Genome.png'
+import RetryHost from '../img/RetryHost.png'
 
 type Project = {
   id: number;
@@ -19,16 +22,17 @@ const projects: Project[] = [
   {
     id: 1,
     title: "ChemG",
-    description: "Program for fast learning with AI technology. [Unreleased]",
+    description: "Program for fast learning with AI technology. [Development suspended]",
     image: ChemG,
-    tags: ["Tauri", "TypeScript", "Tailwind"],
+    tags: ["TypeScript", "Tauri", "React", "Tailwind"],
+    githubUrl: "https://github.com/AlexTrish/ChemG"
   },
   {
     id: 2,
-    title: "YaCalc",
-    description: "A handy extension for quick calculation, designed to simplify and speed up your work.",
-    image: YaCalc,
-    tags: ["HTML5", "CSS3", "JavaScript"],
+    title: "Genome",
+    description: "This programme aims to facilitate work towards bioinformatics and genetic engineering [Unreleased][Development suspended]",
+    image: Genome,
+    tags: ["JavaScript", "Tauri", "React", "Tailwind"],
     githubUrl: "https://github.com/AlexTrish/YaCalc"
   },
   {
@@ -37,7 +41,32 @@ const projects: Project[] = [
     description: "A roguelike-style game in the DnD universe. [Unreleased]",
     image: DangRogue,
     tags: ["Gadot", "GDScript", "Lua"],
-  }
+  },
+  {
+    id: 4,
+    title: "Elidu",
+    description: "This app has been created to help applicants when applying to universitys. [Unreleased][Development suspended]",
+    image: Elidu,
+    tags: ["TypeScript", "Expo", "React Native" ],
+    liveUrl: "https://elidu.vercel.app/",
+    githubUrl: "https://github.com/AlexTrish/Elidu"
+  },
+  {
+    id: 5,
+    title: "YaCalc",
+    description: "A handy extension for quick calculation, designed to simplify and speed up your work.",
+    image: YaCalc,
+    tags: ["HTML5", "CSS3", "JavaScript"],
+    githubUrl: "https://github.com/AlexTrish/YaCalc"
+  },
+  {
+    id: 6,
+    title: "Retry.Host",
+    description: "Web service for VPN, Virtual Servers, Dedicated Servers, Virtual Hosting and Domains.",
+    image: RetryHost,
+    tags: ["HTML5", "CSS3", "JavaScript"],
+    liveUrl: "https://retry.host",
+  },
 ];
 
 const allTags = Array.from(new Set(projects.flatMap(project => project.tags)));
