@@ -64,7 +64,7 @@ const projects: Project[] = [
     title: "Retry.Host",
     description: "Web service for VPN, Virtual Servers, Dedicated Servers, Virtual Hosting and Domains.",
     image: RetryHost,
-    tags: ["HTML5", "CSS3", "JavaScript"],
+    tags: ["TypeScript", "React", "Tailwind"],
     liveUrl: "https://retry.host",
   },
 ];
