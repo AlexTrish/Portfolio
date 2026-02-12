@@ -59,14 +59,6 @@ const projects: Project[] = [
     tags: ["HTML5", "CSS3", "JavaScript"],
     githubUrl: "https://github.com/AlexTrish/YaCalc"
   },
-  {
-    id: 6,
-    title: "Retry.Host",
-    description: "Web service for VPN, Virtual Servers, Dedicated Servers, Virtual Hosting and Domains.",
-    image: RetryHost,
-    tags: ["TypeScript", "React", "Tailwind"],
-    liveUrl: "https://retry.host",
-  },
 ];
 
 const allTags = Array.from(new Set(projects.flatMap(project => project.tags)));
