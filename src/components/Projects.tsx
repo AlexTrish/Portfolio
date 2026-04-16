@@ -4,9 +4,9 @@ import { ExternalLink, Github, Globe } from 'lucide-react';
 import ChemG from '../img/ChemG.png';
 import YaCalc from '../img/YaCalc.png';
 import DangRogue from '../img/DangRogue.png';
-import Elidu from '../img/Elidu.png'
+import QVOR from '../img/QVOR.png'
 import Genome from '../img/Genome.png'
-import RetryHost from '../img/RetryHost.png'
+import Retry from '../img/Retry.png'
 
 type Project = {
   id: number;
@@ -44,20 +44,42 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    title: "Elidu",
-    description: "This app has been created to help applicants when applying to universitys. [Unreleased][Development suspended]",
-    image: Elidu,
-    tags: ["TypeScript", "Expo", "React Native" ],
-    liveUrl: "https://elidu.vercel.app/",
-    githubUrl: "https://github.com/AlexTrish/Elidu"
-  },
-  {
-    id: 5,
     title: "YaCalc",
     description: "A handy extension for quick calculation, designed to simplify and speed up your work.",
     image: YaCalc,
     tags: ["HTML5", "CSS3", "JavaScript"],
     githubUrl: "https://github.com/AlexTrish/YaCalc"
+  },
+  {
+    id: 5,
+    title: "QVOR",
+    description: "Public Messaging Service. [Development suspended]",
+    image: QVOR,
+    tags: ["TypeScript", "Next", "Tailwind", "Node", "E2EE (End-to-End Encryption)", "WebRTC" ],
+    liveUrl: "https://qvor.ru",
+  },
+  {
+    id: 6,
+    title: "RETRY.NETWORK",
+    description: "Cloud DDoS Protection and Traffic Management",
+    image: Retry,
+    tags: ["TypeScript", "Next", "Tailwind" ],
+    liveUrl: "https://retry.network",
+  },
+  {
+    id: 7,
+    title: "RETRY.PAY",
+    description: "Next-Gen Crypto Processing",
+    image: Retry,
+    tags: ["TypeScript", "Next", "Tailwind" ],
+    liveUrl: "https://retry.money",
+  },
+  {
+    id: 8,
+    title: "RETRY.ADMIN",
+    description: "Full-fledged CRM system/Admin panel for the Retry ecosystem",
+    image: Retry,
+    tags: ["TypeScript", "Next", "Tailwind" ],
   },
 ];
 
