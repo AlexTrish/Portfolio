@@ -235,7 +235,7 @@ export default function Hero(): React.JSX.Element {
           className="font-caption"
           style={{ marginBottom: "2.5rem" }}
         >
-          Portfolio — 2025
+          Portfolio — 2026
         </motion.p>
 
         <h1 aria-label="Building Digital Experiences">
