@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Alex Mercer — Frontend & Full Stack Developer",
+  title: "AlexTrish — Frontend & Full Stack Developer",
   description: "Building digital experiences at the intersection of design and engineering.",
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };

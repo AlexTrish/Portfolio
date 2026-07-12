@@ -40,7 +40,7 @@ export default function Loader({ onComplete }: Props): React.JSX.Element {
           >
             <Image
               src="/logo.svg"
-              alt="Alex Mercer"
+              alt="AlexTrish"
               width={160}
               height={34}
               priority
