@@ -1,0 +1,13 @@
+title: Qvor
+subtitle: Social Network & Messenger
+year: 2026
+accent: #ffffff
+tags: Next.js, Tailwind CSS, TypeScript, E2EE (End-to-End Encryption), WebRTC, WebSockets, PostgreSQL
+flip: false
+highlights: Real-time Messaging, Social Feed, Full Stack
+
+description:
+A full-stack social network and messenger with real-time communication, user profiles, and a dynamic content feed.
+
+longDescription:
+Qvor is a personal project — a social platform built from scratch. It combines a social feed with direct and group messaging, real-time notifications, and user profiles. The architecture is built around WebSockets for instant communication and a PostgreSQL database for structured social graph data. Every interaction is designed to feel immediate and fluid.

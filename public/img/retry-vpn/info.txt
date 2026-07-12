@@ -1,0 +1,13 @@
+title: Retry.VPN
+subtitle: Landing, CRM & Personal Account
+year: 2026
+accent: #10b981
+tags: Next.js, TypeScript, Tailwind CSS, REST API
+flip: true
+highlights: Landing Page, CRM System, Personal Account
+
+description:
+A landing page, CRM system, and personal account dashboard for a zero-logs VPN service built on WireGuard.
+
+longDescription:
+Retry.VPN is a privacy-focused VPN service with a strict no-logs policy. My work covered the client-facing product: a marketing landing page, an internal CRM for managing users and subscriptions, and a personal account dashboard where users connect to servers, switch regions, and manage their subscription. Built with Next.js, TypeScript, and Tailwind CSS.

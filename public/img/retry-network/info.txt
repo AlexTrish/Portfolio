@@ -1,0 +1,13 @@
+title: Retry.Network
+subtitle: Landing, CRM & Personal Account
+year: 2025
+accent: #10b981
+tags: Next.js, TypeScript, Tailwind CSS, REST API
+flip: true
+highlights: Landing Page, CRM System, Personal Account
+
+description:
+A landing page, CRM system, and personal account dashboard for a decentralized web infrastructure platform.
+
+longDescription:
+Retry.Network is a decentralized infrastructure platform similar to Cloudflare. My work covered the client-facing side: a marketing landing page, an internal CRM for managing clients and subscriptions, and a personal account dashboard where users control their services, monitor usage, and manage billing. Built entirely with Next.js, TypeScript, and Tailwind CSS with a focus on clarity and performance.

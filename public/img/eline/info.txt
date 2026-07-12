@@ -1,0 +1,13 @@
+title: Eline
+subtitle: Handcraft Artist Landing
+year: 2026
+accent: #a78bfa
+tags: Next.js, TypeScript, Tailwind CSS, Shopify, Framer Motion
+flip: true
+highlights: Booking System, E-commerce, Editorial Design
+
+description:
+A personal landing page for a handcraft artist — introducing the author, showcasing work, booking masterclasses, and selling handmade items.
+
+longDescription:
+Eline is a personal brand website for a handcraft artist. The site lets visitors discover the author's story, browse a portfolio of handmade pieces, book masterclass sessions, and purchase items directly. The design language is warm and editorial — generous whitespace, tactile textures, and typography that reflects the craft itself. Built with a focus on conversion and a seamless booking experience.

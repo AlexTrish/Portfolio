@@ -1,0 +1,13 @@
+title: Retry.Proxy
+subtitle: Privacy-First Proxy Service
+year: 2025
+accent: #10b981
+tags: Next.js, TypeScript, Tailwind CSS, REST API
+flip: false
+highlights: Zero Traffic Logging, Residential Proxies, Dashboard
+
+description:
+A proxy service built on a strict no-logging policy — no traffic monitoring, no data retention, no third-party sharing.
+
+longDescription:
+Retry.Proxy is a proxy service designed around privacy as a core principle. Unlike traditional proxy providers, the platform enforces a strict zero-logging architecture — no traffic is monitored, stored, or shared. Users get access to residential and datacenter proxies through a clean dashboard with real-time usage stats, geo-targeting, and multi-account management. Built for developers, researchers, and businesses that require both performance and genuine privacy.

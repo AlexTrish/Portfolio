@@ -1,0 +1,13 @@
+title: ChemG
+subtitle: AI Chemistry Learning App
+year: 2024
+accent: #f59e0b
+tags: Tauri, React, JavaScript, Tailwind CSS, OpenAI
+flip: false
+highlights: AI Assistant, Virtual Laboratory, Interactive Learning
+
+description:
+An AI-powered chemistry learning application with a built-in virtual laboratory, interactive experiments, and a personal AI assistant.
+
+longDescription:
+ChemG is a chemistry learning platform built around an AI assistant that guides students through concepts, answers questions, and adapts to each learner's pace. The built-in virtual laboratory lets users run chemical experiments in a safe, interactive environment — mixing compounds, observing reactions, and exploring molecular structures in real time. Designed to make chemistry intuitive and engaging for students at any level.

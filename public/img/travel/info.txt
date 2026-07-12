@@ -1,0 +1,13 @@
+title: Travel
+subtitle: University Client Project
+year: 2022
+accent: #06b6d4
+tags: React, JavaScript, SCSS/SASS
+flip: false
+highlights: Client Work, Landing Page, Motion Design
+
+description:
+A travel discovery landing page created as a university assignment — practical experience working with a real client brief and design requirements.
+
+longDescription:
+Travel was built as part of a university course focused on real-world client collaboration. The assignment simulated a full client engagement — from brief and requirements gathering to design, development, and delivery. The result is a visually rich travel discovery landing page with immersive destination photography, parallax depth, and smooth scroll interactions. A foundational project that shaped how I approach client communication and project scoping.
