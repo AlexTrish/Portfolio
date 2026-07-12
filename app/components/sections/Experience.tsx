@@ -15,36 +15,49 @@ type Experience = {
 
 const EXPERIENCES: Experience[] = [
   {
-    period: "2022 — Present",
-    role: "Senior Frontend Engineer",
-    company: "Vercel",
+    period: "2024 — Present",
+    role: "Full-Stack Developer",
+    company: "Self Employed",
     type: "Full-time",
-    description: "Leading the frontend architecture of the dashboard product. Driving performance initiatives that reduced LCP by 60% and built the new design system from scratch.",
-    highlights: ["Design System", "Performance", "Team Lead"],
+    description:
+      "Building full-stack web applications from concept to production. Designing scalable frontend architecture with React, Next.js and TypeScript while developing backend services, REST APIs and authentication systems. Managing deployment, performance optimization and the complete development lifecycle.",
+    highlights: [
+      "React",
+      "Next.js",
+      "Node.js",
+      "REST API",
+      "Architecture",
+    ],
   },
   {
-    period: "2020 — 2022",
-    role: "Full Stack Developer",
-    company: "Linear",
+    period: "2021 — 2024",
+    role: "Middle Frontend Developer",
+    company: "Self Employed",
     type: "Full-time",
-    description: "Built core product features including the real-time sync engine, keyboard shortcut system, and the mobile-responsive redesign of the main interface.",
-    highlights: ["Real-time", "Architecture", "Mobile"],
+    description:
+      "Developed responsive web applications, implemented complex user interfaces, integrated REST APIs and collaborated with designers to deliver polished user experiences. Focused on performance, accessibility and maintainable code architecture.",
+    highlights: [
+      "React",
+      "TypeScript",
+      "Performance",
+      "UI/UX",
+      "REST API",
+    ],
   },
   {
-    period: "2019 — 2020",
-    role: "Frontend Developer",
-    company: "Framer",
-    type: "Contract",
-    description: "Developed interactive prototyping components and contributed to the animation engine. Shipped 15+ reusable components to the public component library.",
-    highlights: ["Animation", "Components", "Open Source"],
-  },
-  {
-    period: "2017 — 2019",
-    role: "UI Engineer",
-    company: "Freelance",
-    type: "Freelance",
-    description: "Worked with startups and agencies across Europe to deliver high-quality web experiences. Specialized in motion design and interactive storytelling.",
-    highlights: ["Motion", "Branding", "Startups"],
+    period: "2020 — 2021",
+    role: "Junior Frontend Developer",
+    company: "Self Employed",
+    type: "Full-time",
+    description:
+      "Built responsive interfaces, maintained existing projects and implemented new features under guidance. Gained experience with modern frontend technologies, component-based development and Git workflows.",
+    highlights: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Git",
+    ],
   },
 ];
 
