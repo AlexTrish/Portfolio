@@ -1,5 +1,8 @@
 title: Retry.Proxy
-subtitle: Privacy-First Proxy Service
+subtitle: 
+    [ru] Прокси-сервис, ориентированный на конфиденциальность
+    [cz] Proxy služba s prioritou ochrany soukromí
+    [en] Privacy-First Proxy Service
 year: 2025
 accent: #10b981
 tags: Next.js, TypeScript, Tailwind CSS, REST API
@@ -7,7 +10,11 @@ flip: false
 highlights: Zero Traffic Logging, Residential Proxies, Dashboard
 
 description:
-A proxy service built on a strict no-logging policy — no traffic monitoring, no data retention, no third-party sharing.
+    [ru] Прокси-сервис, основанный на строгой политике отсутствия регистрации данных — никакого мониторинга трафика, никакого хранения данных, никакой передачи данных третьим лицам.
+    [cz] Proxy služba založená na přísné politice bez uchovávání záznamů – žádné sledování provozu, žádné uchovávání dat, žádné sdílení s třetími stranami.
+    [en] A proxy service built on a strict no-logging policy — no traffic monitoring, no data retention, no third-party sharing.
 
 longDescription:
-Retry.Proxy is a proxy service designed around privacy as a core principle. Unlike traditional proxy providers, the platform enforces a strict zero-logging architecture — no traffic is monitored, stored, or shared. Users get access to residential and datacenter proxies through a clean dashboard with real-time usage stats, geo-targeting, and multi-account management. Built for developers, researchers, and businesses that require both performance and genuine privacy.
+    [ru] Retry.Proxy — это прокси-сервис, в основе которого лежит принцип конфиденциальности. В отличие от традиционных провайдеров прокси-сервисов, платформа придерживается строгой архитектуры «без ведения журналов» — трафик не отслеживается, не сохраняется и не передается третьим лицам. Пользователи получают доступ к прокси-серверам, расположенным в жилых районах и дата-центрах, через удобную панель управления с статистикой использования в режиме реального времени, функцией геотаргетинга и возможностью управления несколькими учетными записями. Сервис создан для разработчиков, исследователей и компаний, которым важны как высокая производительность, так и настоящая конфиденциальность.
+    [cz] Retry.Proxy je proxy služba, jejíž základním principem je ochrana soukromí. Na rozdíl od tradičních poskytovatelů proxy služeb tato platforma dodržuje přísnou architekturu bez protokolování – žádný provoz není sledován, ukládán ani sdílen. Uživatelé získávají přístup k rezidenčním a datacentrovým proxy serverům prostřednictvím přehledného ovládacího panelu s statistikami využití v reálném čase, geocílením a správou více účtů. Služba je určena pro vývojáře, výzkumníky a firmy, které vyžadují jak vysoký výkon, tak skutečné soukromí.
+    [en] Retry.Proxy is a proxy service designed around privacy as a core principle. Unlike traditional proxy providers, the platform enforces a strict zero-logging architecture — no traffic is monitored, stored, or shared. Users get access to residential and datacenter proxies through a clean dashboard with real-time usage stats, geo-targeting, and multi-account management. Built for developers, researchers, and businesses that require both performance and genuine privacy.

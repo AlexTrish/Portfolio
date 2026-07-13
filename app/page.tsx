@@ -9,21 +9,24 @@ import Skills from "@/app/components/sections/Skills";
 import Experience from "@/app/components/sections/Experience";
 import Contact from "@/app/components/sections/Contact";
 import Footer from "@/app/components/sections/Footer";
+import { LocaleProvider } from "@/app/lib/i18n/LocaleContext";
 
 export default function Home(): React.JSX.Element {
   return (
-    <SmoothScroll>
-      <CustomCursor />
-      <Navigation />
-      <main>
-        <Hero />
-        <About />
-        <Projects projects={PROJECTS} />
-        <Skills />
-        <Experience />
-        <Contact />
-      </main>
-      <Footer />
-    </SmoothScroll>
+    <LocaleProvider>
+      <SmoothScroll>
+        <CustomCursor />
+        <Navigation />
+        <main>
+          <Hero />
+          <About />
+          <Projects projects={PROJECTS} />
+          <Skills />
+          <Experience />
+          <Contact />
+        </main>
+        <Footer />
+      </SmoothScroll>
+    </LocaleProvider>
   );
 }

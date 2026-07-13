@@ -1,5 +1,8 @@
 title: ChemG
-subtitle: AI Chemistry Learning App
+subtitle: 
+    [ru] Приложение для изучения химии
+    [cz] Aplikace pro výuku chemie
+    [en] AI Chemistry Learning App
 year: 2024
 accent: #f59e0b
 tags: Tauri, React, JavaScript, Tailwind CSS, OpenAI
@@ -7,7 +10,11 @@ flip: false
 highlights: AI Assistant, Virtual Laboratory, Interactive Learning
 
 description:
-An AI-powered chemistry learning application with a built-in virtual laboratory, interactive experiments, and a personal AI assistant.
+    [ru] Приложение для изучения химии на базе искусственного интеллекта со встроенной виртуальной лабораторией, интерактивными экспериментами и персональным ИИ-помощником.
+    [cz] Aplikace pro výuku chemie využívající umělou inteligenci, která obsahuje vestavěnou virtuální laboratoř, interaktivní experimenty a osobního AI asistenta.
+    [en] An AI-powered chemistry learning application with a built-in virtual laboratory, interactive experiments, and a personal AI assistant.
 
 longDescription:
-ChemG is a chemistry learning platform built around an AI assistant that guides students through concepts, answers questions, and adapts to each learner's pace. The built-in virtual laboratory lets users run chemical experiments in a safe, interactive environment — mixing compounds, observing reactions, and exploring molecular structures in real time. Designed to make chemistry intuitive and engaging for students at any level.
+    [ru] ChemG — это платформа для изучения химии, построенная на базе искусственного интеллекта, который помогает учащимся осваивать теоретические концепции, отвечает на вопросы и адаптируется к индивидуальному темпу обучения каждого учащегося. Встроенная виртуальная лаборатория позволяет пользователям проводить химические эксперименты в безопасной интерактивной среде — смешивать соединения, наблюдать за реакциями и исследовать молекулярные структуры в режиме реального времени. Платформа разработана с целью сделать изучение химии интуитивно понятным и увлекательным для учащихся любого уровня подготовки.
+    [cz] ChemG je platforma pro výuku chemie založená na asistentovi s umělou inteligencí, který provází studenty jednotlivými pojmy, odpovídá na jejich dotazy a přizpůsobuje se tempu každého jednotlivého studenta. Díky integrované virtuální laboratoři mohou uživatelé provádět chemické pokusy v bezpečném a interaktivním prostředí – míchat sloučeniny, sledovat reakce a zkoumat molekulární struktury v reálném čase. Platforma je navržena tak, aby chemie byla pro studenty všech úrovní intuitivní a poutavá.
+    [en] ChemG is a chemistry learning platform built around an AI assistant that guides students through concepts, answers questions, and adapts to each learner's pace. The built-in virtual laboratory lets users run chemical experiments in a safe, interactive environment — mixing compounds, observing reactions, and exploring molecular structures in real time. Designed to make chemistry intuitive and engaging for students at any level.

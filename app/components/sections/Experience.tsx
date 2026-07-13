@@ -3,8 +3,9 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import TextReveal from "@/app/components/ui/TextReveal";
+import { useDict } from "@/app/lib/i18n/LocaleContext";
 
-type Experience = {
+type ExperienceItem = {
   period: string;
   role: string;
   company: string;
@@ -13,60 +14,12 @@ type Experience = {
   highlights: string[];
 };
 
-const EXPERIENCES: Experience[] = [
-  {
-    period: "2024 — Present",
-    role: "Full-Stack Developer",
-    company: "Self Employed",
-    type: "Full-time",
-    description:
-      "Building full-stack web applications from concept to production. Designing scalable frontend architecture with React, Next.js and TypeScript while developing backend services, REST APIs and authentication systems. Managing deployment, performance optimization and the complete development lifecycle.",
-    highlights: [
-      "React",
-      "Next.js",
-      "Node.js",
-      "REST API",
-      "Architecture",
-    ],
-  },
-  {
-    period: "2021 — 2024",
-    role: "Middle Frontend Developer",
-    company: "Self Employed",
-    type: "Full-time",
-    description:
-      "Developed responsive web applications, implemented complex user interfaces, integrated REST APIs and collaborated with designers to deliver polished user experiences. Focused on performance, accessibility and maintainable code architecture.",
-    highlights: [
-      "React",
-      "TypeScript",
-      "Performance",
-      "UI/UX",
-      "REST API",
-    ],
-  },
-  {
-    period: "2020 — 2021",
-    role: "Junior Frontend Developer",
-    company: "Self Employed",
-    type: "Full-time",
-    description:
-      "Built responsive interfaces, maintained existing projects and implemented new features under guidance. Gained experience with modern frontend technologies, component-based development and Git workflows.",
-    highlights: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Git",
-    ],
-  },
-];
-
-function ExperienceItem({
+function ExperienceRow({
   experience,
   index,
   isLast,
 }: {
-  experience: Experience;
+  experience: ExperienceItem;
   index: number;
   isLast: boolean;
 }): React.JSX.Element {
@@ -83,9 +36,7 @@ function ExperienceItem({
         borderBottom: isLast ? "none" : "1px solid rgba(255,255,255,0.05)",
       }}
     >
-      {/* Mobile: stacked. md+: 3-col grid */}
       <div className="flex flex-col md:grid md:items-start" style={{ gridTemplateColumns: "10rem 1.5rem 1fr", gap: "0.75rem 2rem" }}>
-
         {/* Period */}
         <motion.div
           initial={{ opacity: 0, x: -12 }}
@@ -95,7 +46,7 @@ function ExperienceItem({
           <span className="font-caption">{experience.period}</span>
         </motion.div>
 
-        {/* Timeline dot + line — hidden on mobile */}
+        {/* Timeline dot */}
         <div className="hidden md:flex flex-col items-center">
           <motion.div
             initial={{ scale: 0 }}
@@ -103,15 +54,11 @@ function ExperienceItem({
             transition={{ duration: 0.4, delay: index * 0.08 + 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="rounded-full"
             style={{
-              width: "8px",
-              height: "8px",
-              marginTop: "0.3rem",
-              flexShrink: 0,
+              width: "8px", height: "8px", marginTop: "0.3rem", flexShrink: 0,
               border: isActive ? "1px solid var(--accent)" : "1px solid rgba(255,255,255,0.2)",
               background: isActive ? "var(--accent)" : "var(--bg-2)",
               boxShadow: isActive ? "0 0 12px rgba(184,255,59,0.6)" : "none",
-              position: "relative",
-              zIndex: 1,
+              position: "relative", zIndex: 1,
             }}
           />
           {!isLast && (
@@ -174,6 +121,8 @@ function ExperienceItem({
 }
 
 export default function Experience(): React.JSX.Element {
+  const { dict } = useDict();
+  const t = dict.experience;
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
 
@@ -192,27 +141,27 @@ export default function Experience(): React.JSX.Element {
           className="font-caption"
           style={{ marginBottom: "1.5rem" }}
         >
-          04 — Experience
+          {t.label}
         </motion.p>
         <TextReveal>
           <h2
             className="font-display"
             style={{ fontSize: "clamp(2.8rem, 7.5vw, 8.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9, color: "var(--text)" }}
           >
-            Where
+            {t.title1}
             <br />
-            <span style={{ color: "rgba(255,255,255,0.15)" }}>I&apos;ve Been</span>
+            <span style={{ color: "rgba(255,255,255,0.15)" }}>{t.title2}</span>
           </h2>
         </TextReveal>
       </div>
 
       <div>
-        {EXPERIENCES.map((exp, i) => (
-          <ExperienceItem
-            key={exp.company + exp.period}
+        {t.items.map((exp, i) => (
+          <ExperienceRow
+            key={exp.period}
             experience={exp}
             index={i}
-            isLast={i === EXPERIENCES.length - 1}
+            isLast={i === t.items.length - 1}
           />
         ))}
       </div>

@@ -1,5 +1,8 @@
 title: Eline
-subtitle: Handcraft Artist Landing
+subtitle: 
+    [en] Handcraft Artist Landing
+    [ru] Страница художника-гончара
+    [cz] Úvodní stránka umělců zabývajících se ruční tvorbou
 year: 2026
 accent: #a78bfa
 tags: Next.js, TypeScript, Tailwind CSS, Shopify, Framer Motion
@@ -7,7 +10,11 @@ flip: true
 highlights: Booking System, E-commerce, Editorial Design
 
 description:
-A personal landing page for a handcraft artist — introducing the author, showcasing work, booking masterclasses, and selling handmade items.
+    [en] A personal landing page for a handcraft artist — introducing the author, showcasing work, booking masterclasses, and selling handmade items.
+    [ru] Личный сайт мастера рукоделия — представление автора, демонстрация работ, запись на мастер-классы и продажа изделий ручной работы.
+    [cz] Osobní webová stránka pro umělkyni zabývající se ručními řemesly – představuje autorku, prezentuje její díla, umožňuje rezervaci mistrovských kurzů a prodej ručně vyráběných předmětů.
 
 longDescription:
-Eline is a personal brand website for a handcraft artist. The site lets visitors discover the author's story, browse a portfolio of handmade pieces, book masterclass sessions, and purchase items directly. The design language is warm and editorial — generous whitespace, tactile textures, and typography that reflects the craft itself. Built with a focus on conversion and a seamless booking experience.
+    [en] Eline is a personal brand website for a handcraft artist. The site lets visitors discover the author's story, browse a portfolio of handmade pieces, book masterclass sessions, and purchase items directly. The design language is warm and editorial — generous whitespace, tactile textures, and typography that reflects the craft itself. Built with a focus on conversion and a seamless booking experience.
+    [ru] Eline — это сайт личного бренда мастера ручной работы. На сайте посетители могут познакомиться с историей автора, просмотреть портфолио изделий ручной работы, записаться на мастер-классы и напрямую приобрести изделия. Дизайн выполнен в тёплом и издательском стиле — с обильным использованием пустого пространства, тактильными текстурами и типографикой, отражающей саму суть ремесла. Сайт создан с акцентом на конверсию и удобство процесса бронирования.
+    [cz] Eline je webová stránka osobní značky pro umělkyni zabývající se ruční tvorbou. Stránka umožňuje návštěvníkům seznámit se s příběhem autorky, prohlédnout si portfolio ručně vyráběných výrobků, rezervovat si mistrovské kurzy a přímo nakupovat výrobky. Design je hřejivý a má redakční charakter – vyznačuje se velkorysým využitím bílého prostoru, hmatovými texturami a typografií, která odráží samotné řemeslo. Stránka byla vytvořena s důrazem na konverzi a plynulý proces rezervace.

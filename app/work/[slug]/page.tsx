@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return { title: "Not Found" };
   return {
     title: `${project.title} — AlexTrish`,
-    description: project.description,
+    description: project.description.en,
   };
 }
 

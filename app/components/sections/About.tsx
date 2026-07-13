@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import TextReveal from "@/app/components/ui/TextReveal";
+import { useDict } from "@/app/lib/i18n/LocaleContext";
 
 function FlipCounter({ target, delay = 0 }: { target: string; delay?: number }): React.JSX.Element {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,13 +49,9 @@ function FlipCounter({ target, delay = 0 }: { target: string; delay?: number }):
   );
 }
 
-const STATS = [
-  { value: "7+",  label: "Years of experience" },
-  { value: "40+", label: "Projects shipped"    },
-  { value: "12",  label: "Happy clients"       },
-];
-
 export default function About(): React.JSX.Element {
+  const { dict } = useDict();
+  const t = dict.about;
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-12%" });
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
@@ -81,7 +78,7 @@ export default function About(): React.JSX.Element {
         className="font-caption"
         style={{ marginBottom: "clamp(3rem, 6vw, 5rem)" }}
       >
-        01 — About
+        {t.label}
       </motion.p>
 
       {/* Two-column on lg, single column on mobile */}
@@ -100,16 +97,16 @@ export default function About(): React.JSX.Element {
                 color: "rgba(255,255,255,0.88)",
               }}
             >
-              I craft interfaces that feel{" "}
+              {t.headline}{" "}
               <motion.span
                 initial={{ color: "var(--text)" }}
                 animate={isInView ? { color: "var(--accent)", textShadow: "0 0 28px rgba(184,255,59,0.45)" } : {}}
                 transition={{ duration: 0.8, delay: 0.6 }}
                 style={{ display: "inline" }}
               >
-                inevitable
+                {t.accent}
               </motion.span>
-              {" "}— where every pixel earns its place.
+              {" "}{t.rest}
             </p>
           </TextReveal>
 
@@ -122,7 +119,7 @@ export default function About(): React.JSX.Element {
           />
 
           <div className="flex flex-wrap" style={{ marginTop: "3rem", gap: "2rem 4rem" }}>
-            {STATS.map((stat, i) => (
+            {t.stats.map((stat, i) => (
               <div key={stat.label} className="flex flex-col" style={{ gap: "0.3rem" }}>
                 <FlipCounter target={stat.value} delay={0.7 + i * 0.15} />
                 <span className="font-caption">{stat.label}</span>
@@ -149,21 +146,19 @@ export default function About(): React.JSX.Element {
             style={{ gap: "1.5rem" }}
           >
             <p style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 300, fontSize: "0.875rem", lineHeight: 1.75, color: "rgba(255,255,255,0.45)" }}>
-              Based in Europe, I specialize in building high-performance web applications
-              with a deep focus on interaction design, animation, and developer experience.
+              {t.bio1}
             </p>
             <p style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 300, fontSize: "0.875rem", lineHeight: 1.75, color: "rgba(255,255,255,0.45)" }}>
-              My work sits at the intersection of engineering precision and visual craft —
-              I believe the best interfaces are the ones you don&apos;t notice, because they simply work.
+              {t.bio2}
             </p>
 
             <div
               className="rounded-2xl"
               style={{ marginTop: "0.5rem", padding: "1.25rem", background: "rgba(184,255,59,0.04)", border: "1px solid rgba(184,255,59,0.12)" }}
             >
-              <p className="font-caption" style={{ color: "var(--accent)", marginBottom: "0.5rem" }}>Currently</p>
+              <p className="font-caption" style={{ color: "var(--accent)", marginBottom: "0.5rem" }}>{t.currently}</p>
               <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.6)", fontWeight: 300, lineHeight: 1.6 }}>
-                Open to senior frontend &amp; full-stack roles and freelance collaborations.
+                {t.currentlyValue}
               </p>
             </div>
           </motion.div>

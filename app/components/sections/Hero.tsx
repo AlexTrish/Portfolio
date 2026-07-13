@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, MotionValue } from "framer-motion";
+import { useDict } from "@/app/lib/i18n/LocaleContext";
 
 // ─── Per-character split text with individual scroll scatter ──
 type SplitProps = {
@@ -10,39 +11,37 @@ type SplitProps = {
   style?: React.CSSProperties;
   stagger?: number;
   scrollProgress: MotionValue<number>;
-  scatterStart?: number; // scroll progress when scatter begins
+  scatterStart?: number;
+  isMobile: boolean;
 };
 
-// Single char — separates enter animation from scroll-scatter
 function SplitChar({
-  char, enterDelay, scrollProgress, scatterStart, index,
+  char, enterDelay, scrollProgress, scatterStart, index, isMobile,
 }: {
   char: string;
   enterDelay: number;
   scrollProgress: MotionValue<number>;
   scatterStart: number;
   index: number;
+  isMobile: boolean;
 }): React.JSX.Element {
   const seed = (index * 137.5) % 360;
   const rad  = (seed * Math.PI) / 180;
-  // Round to 2 decimal places — prevents SSR/client float mismatch
   const dx   = Math.round(Math.cos(rad) * 60 * 100) / 100;
   const dy   = Math.round((Math.sin(rad) * 40 - 20) * 100) / 100;
 
-  // Scroll-driven scatter (exit)
-  const scatterOpacity = useTransform(scrollProgress, [scatterStart, scatterStart + 0.25], [1, 0]);
-  const scatterX       = useTransform(scrollProgress, [scatterStart, scatterStart + 0.3],  [0, dx]);
-  const scatterY       = useTransform(scrollProgress, [scatterStart, scatterStart + 0.3],  [0, dy]);
-  const blurRaw        = useTransform(scrollProgress, [scatterStart, scatterStart + 0.25], [0, 8]);
+  // On mobile: skip scroll-driven scatter entirely (too expensive)
+  const scatterOpacity = useTransform(scrollProgress, [scatterStart, scatterStart + 0.25], [1, isMobile ? 1 : 0]);
+  const scatterX       = useTransform(scrollProgress, [scatterStart, scatterStart + 0.3],  [0, isMobile ? 0 : dx]);
+  const scatterY       = useTransform(scrollProgress, [scatterStart, scatterStart + 0.3],  [0, isMobile ? 0 : dy]);
+  const blurRaw        = useTransform(scrollProgress, [scatterStart, scatterStart + 0.25], [0, isMobile ? 0 : 8]);
   const scatterFilter  = useTransform(blurRaw, (v) => `blur(${v}px)`);
 
   return (
     <span className="char-wrap">
-      {/* Outer: scroll-driven scatter */}
       <motion.span
         style={{ display: "inline-block", x: scatterX, y: scatterY, opacity: scatterOpacity, filter: scatterFilter }}
       >
-        {/* Inner: enter animation — mirrors scatter direction */}
         <motion.span
           className="char-inner"
           initial={{ x: -dx, y: -dy, opacity: 0, filter: "blur(8px)" }}
@@ -56,7 +55,7 @@ function SplitChar({
   );
 }
 
-function SplitText({ text, delay = 0, style = {}, stagger = 0.04, scrollProgress, scatterStart = 0.15 }: SplitProps): React.JSX.Element {
+function SplitText({ text, delay = 0, style = {}, stagger = 0.04, scrollProgress, scatterStart = 0.15, isMobile }: SplitProps): React.JSX.Element {
   return (
     <span style={{ display: "block", ...style }} aria-label={text}>
       {text.split("").map((char, i) => (
@@ -67,6 +66,7 @@ function SplitText({ text, delay = 0, style = {}, stagger = 0.04, scrollProgress
           scrollProgress={scrollProgress}
           scatterStart={scatterStart}
           index={i}
+          isMobile={isMobile}
         />
       ))}
     </span>
@@ -104,36 +104,35 @@ function Typewriter({ text, delay = 0 }: { text: string; delay?: number }): Reac
   );
 }
 
-// ─── Metadata ─────────────────────────────────────────────
-const METADATA = [
-  { label: "ROLE",      value: "Frontend Developer"           },
-  { label: "LOCATION",  value: "Europe"                       },
-  { label: "AVAILABLE", value: "Freelance"                    },
-  { label: "STACK",     value: "React · Next.js · TypeScript" },
-];
-
 // ─── Main ─────────────────────────────────────────────────
 export default function Hero(): React.JSX.Element {
+  const { dict } = useDict();
+  const t = dict.hero;
+
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
 
-  // Content fade + parallax
-  const headlineY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 1]); // stays visible until scatter kicks in
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
 
-  // Orb exits: scale down + blur
-  const orbScale = useTransform(scrollYProgress, [0.1, 0.5], [1, 0.6]);
+  const headlineY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "22%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 1]);
+
+  const orbScale   = useTransform(scrollYProgress, [0.1, 0.5],  [1, 0.6]);
   const orbOpacity = useTransform(scrollYProgress, [0.1, 0.45], [1, 0]);
   const orbBlurRaw = useTransform(scrollYProgress, [0.1, 0.45], [0, 20]);
-  const orbFilter = useTransform(orbBlurRaw, (v) => `blur(${v}px)`);
+  const orbFilter  = useTransform(orbBlurRaw, (v) => `blur(${v}px)`);
 
-  // Mouse parallax for orb — 3-5px max movement
+  // Mouse parallax — desktop only
   const rawMX = useMotionValue(0);
   const rawMY = useMotionValue(0);
   const orbX  = useSpring(rawMX, { stiffness: 55, damping: 18 });
   const orbY  = useSpring(rawMY, { stiffness: 55, damping: 18 });
 
   useEffect(() => {
+    if (isMobile) return;
     const onMove = (e: MouseEvent) => {
       const cx = window.innerWidth  / 2;
       const cy = window.innerHeight / 2;
@@ -142,7 +141,7 @@ export default function Hero(): React.JSX.Element {
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
-  }, [rawMX, rawMY]);
+  }, [rawMX, rawMY, isMobile]);
 
   return (
     <section
@@ -159,8 +158,9 @@ export default function Hero(): React.JSX.Element {
         aria-hidden="true"
       />
 
-      {/* Breathing orb — exits on scroll */}
+      {/* Breathing orb — hidden on mobile to save GPU */}
       <motion.div
+        className="hidden md:block"
         style={{
           x: orbX, y: orbY,
           scale: orbScale,
@@ -235,39 +235,47 @@ export default function Hero(): React.JSX.Element {
           className="font-caption"
           style={{ marginBottom: "2.5rem" }}
         >
-          Portfolio — 2026
+          {t.label}
         </motion.p>
 
-        <h1 aria-label="Building Digital Experiences">
+        <h1 aria-label={`${t.line1} ${t.line2} ${t.line3}`}>
           <SplitText
-            text="BUILDING"
+            text={t.line1}
             delay={0.3}
             stagger={0.045}
             scrollProgress={scrollYProgress}
             scatterStart={0.12}
+            isMobile={isMobile}
             style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, fontSize: "clamp(3.5rem, 11vw, 13rem)", lineHeight: 0.88, letterSpacing: "-0.04em", color: "var(--text)" }}
           />
           <SplitText
-            text="DIGITAL"
+            text={t.line2}
             delay={0.55}
             stagger={0.045}
             scrollProgress={scrollYProgress}
             scatterStart={0.18}
+            isMobile={isMobile}
             style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, fontSize: "clamp(3.5rem, 11vw, 13rem)", lineHeight: 0.88, letterSpacing: "-0.04em", color: "rgba(255,255,255,0.15)" }}
           />
           <SplitText
-            text="EXPERIENCES"
+            text={t.line3}
             delay={0.78}
             stagger={0.032}
             scrollProgress={scrollYProgress}
             scatterStart={0.24}
+            isMobile={isMobile}
             style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, fontSize: "clamp(3.5rem, 11vw, 13rem)", lineHeight: 0.88, letterSpacing: "-0.04em", color: "var(--text)" }}
           />
         </h1>
 
         {/* Metadata — typewriter */}
         <div className="flex flex-wrap" style={{ marginTop: "3.5rem", gap: "2rem 3.5rem" }}>
-          {METADATA.map((item, i) => (
+          {[
+            { label: t.metaRole,      value: t.role      },
+            { label: t.metaLocation,  value: t.location  },
+            { label: t.metaAvailable, value: t.available },
+            { label: t.metaStack,     value: t.stack     },
+          ].map((item, i) => (
             <motion.div
               key={item.label}
               initial={{ opacity: 0 }}

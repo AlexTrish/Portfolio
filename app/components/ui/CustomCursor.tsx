@@ -13,24 +13,34 @@ const LABEL: Record<CursorState, string> = {
   click: "",
 };
 
+// No-op on touch devices — cursor is irrelevant and wastes resources
+function useIsTouchDevice(): boolean {
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+  return isTouch;
+}
+
 export default function CustomCursor(): React.JSX.Element {
+  const isTouch = useIsTouchDevice();
   const [state, setState] = useState<CursorState>("default");
   const [visible, setVisible] = useState(false);
 
   const mouseX = useMotionValue(-300);
   const mouseY = useMotionValue(-300);
 
-  // Dot — snappy
   const dotX = useSpring(mouseX, { stiffness: 500, damping: 32, mass: 0.3 });
   const dotY = useSpring(mouseY, { stiffness: 500, damping: 32, mass: 0.3 });
 
-  // Ring — lags behind intentionally
   const ringX = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.8 });
   const ringY = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.8 });
 
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
+    if (isTouch) return;
+
     const onMove = (e: MouseEvent) => {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
@@ -49,8 +59,7 @@ export default function CustomCursor(): React.JSX.Element {
       const t = e.target as HTMLElement;
       const el = t.closest("[data-cursor]") as HTMLElement | null;
       if (el) {
-        const label = el.dataset.cursor as CursorState;
-        setState(label ?? "default");
+        setState((el.dataset.cursor as CursorState) ?? "default");
       } else if (t.closest("a")) {
         setState("open");
       } else if (t.closest("button[type='submit'], [data-cursor-send]")) {
@@ -60,7 +69,7 @@ export default function CustomCursor(): React.JSX.Element {
       } else if (t.closest("button, a")) {
         setState("open");
       } else {
-        setState((s) => (["view","send","open"].includes(s) ? "default" : s));
+        setState((s) => (["view", "send", "open"].includes(s) ? "default" : s));
       }
     };
 
@@ -80,11 +89,12 @@ export default function CustomCursor(): React.JSX.Element {
       window.removeEventListener("mouseup", onUp);
       window.removeEventListener("mouseover", onOver);
     };
-  }, [mouseX, mouseY, visible]);
+  }, [mouseX, mouseY, visible, isTouch]);
+
+  if (isTouch) return <></>;
 
   const isLabeled = state === "view" || state === "send" || state === "open";
   const isClick = state === "click";
-
   const ringSize = isLabeled ? 64 : isClick ? 20 : 36;
   const dotSize = isClick ? 4 : 5;
 

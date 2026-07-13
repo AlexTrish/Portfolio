@@ -1,5 +1,8 @@
 title: Retry.Network
-subtitle: Landing, CRM & Personal Account
+subtitle: 
+    [ru] Лэндинг, CRM и личный кабинет
+    [cz] Landing page, CRM a osobní účet
+    [en] Landing, CRM & Personal Account
 year: 2025
 accent: #10b981
 tags: Next.js, TypeScript, Tailwind CSS, REST API
@@ -7,7 +10,11 @@ flip: true
 highlights: Landing Page, CRM System, Personal Account
 
 description:
-A landing page, CRM system, and personal account dashboard for a decentralized web infrastructure platform.
+    [ru] Целевая страница, система CRM и панель управления личным кабинетом для платформы децентрализованной веб-инфраструктуры.
+    [cz] Úvodní stránka, systém CRM a ovládací panel osobního účtu pro platformu decentralizované webové infrastruktury.
+    [en] A landing page, CRM system, and personal account dashboard for a decentralized web infrastructure platform.
 
 longDescription:
-Retry.Network is a decentralized infrastructure platform similar to Cloudflare. My work covered the client-facing side: a marketing landing page, an internal CRM for managing clients and subscriptions, and a personal account dashboard where users control their services, monitor usage, and manage billing. Built entirely with Next.js, TypeScript, and Tailwind CSS with a focus on clarity and performance.
+    [ru] Retry.Network — это децентрализованная инфраструктурная платформа, аналогичная Cloudflare. В рамках своей работы я занимался разработкой клиентской части: маркетинговой целевой страницы, внутренней CRM-системы для управления клиентами и подписками, а также панели личного кабинета, где пользователи могут управлять своими услугами, отслеживать использование и управлять счетами. Все разработано исключительно на Next.js, TypeScript и Tailwind CSS с акцентом на понятность и производительность.
+    [cz] Retry.Network je decentralizovaná infrastrukturní platforma podobná Cloudflare. Moje práce se týkala části určené pro klienty: marketingové vstupní stránky, interního CRM systému pro správu klientů a předplatných a osobního ovládacího panelu účtu, kde uživatelé spravují své služby, sledují využití a řídí fakturaci. Vše bylo vytvořeno výhradně pomocí Next.js, TypeScriptu a Tailwind CSS s důrazem na přehlednost a výkon.
+    [en] Retry.Network is a decentralized infrastructure platform similar to Cloudflare. My work covered the client-facing side: a marketing landing page, an internal CRM for managing clients and subscriptions, and a personal account dashboard where users control their services, monitor usage, and manage billing. Built entirely with Next.js, TypeScript, and Tailwind CSS with a focus on clarity and performance.

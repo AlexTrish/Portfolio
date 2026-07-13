@@ -1,5 +1,8 @@
 title: Retry.VPN
-subtitle: Landing, CRM & Personal Account
+subtitle: 
+    [ru] Лэндинг, CRM и личный кабинет
+    [cz] Landing page, CRM a osobní účet
+    [en] Landing, CRM & Personal Account
 year: 2026
 accent: #10b981
 tags: Next.js, TypeScript, Tailwind CSS, REST API
@@ -7,7 +10,11 @@ flip: true
 highlights: Landing Page, CRM System, Personal Account
 
 description:
-A landing page, CRM system, and personal account dashboard for a zero-logs VPN service built on WireGuard.
+    [ru] Лендинг, CRM-система и панель управления личным кабинетом для VPN-сервиса без ведения журналов, созданного на базе VLESS.
+    [cz] Úvodní stránka, systém CRM a ovládací panel osobního účtu pro službu VPN bez uchovávání protokolů postavenou na platformě VLESS.
+    [en] A landing page, CRM system, and personal account dashboard for a zero-logs VPN service built on VLESS.
 
 longDescription:
-Retry.VPN is a privacy-focused VPN service with a strict no-logs policy. My work covered the client-facing product: a marketing landing page, an internal CRM for managing users and subscriptions, and a personal account dashboard where users connect to servers, switch regions, and manage their subscription. Built with Next.js, TypeScript, and Tailwind CSS.
+    [ru] Retry.VPN — это VPN-сервис, ориентированный на защиту конфиденциальности и придерживающийся строгой политики отсутствия логов. В рамках моей работы я занимался разработкой клиентской части продукта: маркетинговой целевой страницы, внутренней CRM-системы для управления пользователями и подписками, а также панели личного кабинета, где пользователи подключаются к серверам, переключаются между регионами и управляют своими подписками. Проект реализован с использованием Next.js, TypeScript и Tailwind CSS.
+    [cz] Retry.VPN je VPN služba zaměřená na ochranu soukromí s přísnou politikou neuchovávání protokolů. V rámci své práce jsem se zabýval produktem určeným pro zákazníky: marketingovou vstupní stránkou, interním CRM systémem pro správu uživatelů a předplatných a osobním ovládacím panelem účtu, kde se uživatelé připojují k serverům, přepínají regiony a spravují své předplatné. Vytvořeno pomocí Next.js, TypeScript a Tailwind CSS.
+    [en] Retry.VPN is a privacy-focused VPN service with a strict no-logs policy. My work covered the client-facing product: a marketing landing page, an internal CRM for managing users and subscriptions, and a personal account dashboard where users connect to servers, switch regions, and manage their subscription. Built with Next.js, TypeScript, and Tailwind CSS.

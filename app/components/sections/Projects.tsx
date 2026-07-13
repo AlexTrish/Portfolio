@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
 import TextReveal from "@/app/components/ui/TextReveal";
-import type { Project } from "@/app/lib/projects";
+import type { Project } from "@/app/lib/project-types";
+import { getLocalized } from "@/app/lib/project-types";
+import { useDict } from "@/app/lib/i18n/LocaleContext";
 
 const SLIDE_X = ["120%", "-120%", "120%"];
 const EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -30,19 +32,26 @@ const arrowVariant: Variants = {
 function ProjectCard({
   project,
   index,
+  isMobile,
 }: {
   project: Project;
   index: number;
+  isMobile: boolean;
 }): React.JSX.Element {
+  const { dict, locale } = useDict();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-5%" });
+
+  // Scroll parallax — desktop only (expensive on mobile)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+  const imageYDesktop = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+  const imageY = isMobile ? "0%" : imageYDesktop;
 
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
@@ -56,6 +65,10 @@ function ProjectCard({
     setTilt({ x: 0, y: 0 });
     setIsHovered(false);
   };
+
+  // On mobile: image panel always on top, info panel below — regardless of flip
+  const visualOrder = isMobile ? 1 : project.flip ? 2 : 1;
+  const infoOrder   = isMobile ? 2 : project.flip ? 1 : 2;
 
   return (
     <motion.article
@@ -76,13 +89,13 @@ function ProjectCard({
             style={{
               gridTemplateColumns: "repeat(2, 1fr)",
               border: "1px solid rgba(255,255,255,0.06)",
-              transformStyle: "preserve-3d",
-              perspective: "1200px",
+              transformStyle: isMobile ? "flat" : "preserve-3d",
+              perspective: isMobile ? "none" : "1200px",
               transition: "border-color 0.3s",
             }}
             animate={{
-              rotateX: tilt.x,
-              rotateY: tilt.y,
+              rotateX: isMobile ? 0 : tilt.x,
+              rotateY: isMobile ? 0 : tilt.y,
               borderColor: isHovered ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)",
             }}
             transition={{ type: "spring", stiffness: 260, damping: 28 }}
@@ -96,7 +109,7 @@ function ProjectCard({
               variants={bgVariant}
               className="relative overflow-hidden"
               style={{
-                order: project.flip ? 2 : 1,
+                order: visualOrder,
                 minHeight: "clamp(240px, 40vw, 420px)",
                 background: `linear-gradient(135deg, ${project.accent}12 0%, #101010 100%)`,
               }}
@@ -148,7 +161,6 @@ function ProjectCard({
                       </span>
                     </div>
                   )}
-
                 </div>
               </motion.div>
 
@@ -167,7 +179,7 @@ function ProjectCard({
               variants={bgVariant}
               className="flex flex-col justify-between"
               style={{
-                order: project.flip ? 1 : 2,
+                order: infoOrder,
                 padding: "clamp(1.5rem, 4vw, 3rem)",
                 background: "#101010",
               }}
@@ -202,7 +214,7 @@ function ProjectCard({
                     {project.title}
                   </h3>
                   <p style={{ marginTop: "0.75rem", fontSize: "0.8rem", color: "rgba(255,255,255,0.35)", fontWeight: 300 }}>
-                    {project.subtitle}
+                    {getLocalized(project.subtitle, locale)}
                   </p>
                 </div>
 
@@ -210,7 +222,7 @@ function ProjectCard({
                   className="font-editorial"
                   style={{ fontSize: "0.85rem", lineHeight: 1.7, color: "rgba(255,255,255,0.45)", maxWidth: "28rem" }}
                 >
-                  {project.description}
+                  {getLocalized(project.description, locale)}
                 </p>
               </motion.div>
 
@@ -222,7 +234,7 @@ function ProjectCard({
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <span className="font-caption" style={{ color: "rgba(255,255,255,0.35)" }}>
-                    View Case Study
+                    {dict.projects.viewCase}
                   </span>
                   <div style={{ width: "2rem", height: "1px", background: project.accent }} />
                   <div className="rounded-full" style={{ width: "6px", height: "6px", background: project.accent }} />
@@ -237,9 +249,16 @@ function ProjectCard({
 }
 
 export default function Projects({ projects }: { projects: Project[] }): React.JSX.Element {
+  const { dict } = useDict();
+  const t = dict.projects;
   const featured = projects.slice(0, 3);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
 
   return (
     <section
@@ -260,16 +279,16 @@ export default function Projects({ projects }: { projects: Project[] }): React.J
             className="font-caption"
             style={{ marginBottom: "1.5rem" }}
           >
-            02 — Work
+            {t.label}
           </motion.p>
           <TextReveal>
             <h2
               className="font-display"
               style={{ fontSize: "clamp(2.8rem, 7.5vw, 8.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9, color: "#f5f5f5" }}
             >
-              Selected
+              {t.title1}
               <br />
-              <span style={{ color: "rgba(255,255,255,0.18)" }}>Projects</span>
+              <span style={{ color: "rgba(255,255,255,0.18)" }}>{t.title2}</span>
             </h2>
           </TextReveal>
         </div>
@@ -282,7 +301,7 @@ export default function Projects({ projects }: { projects: Project[] }): React.J
             className="font-editorial"
             style={{ fontSize: "0.85rem", lineHeight: 1.7, color: "rgba(255,255,255,0.38)", maxWidth: "20rem" }}
           >
-            A curated selection of work spanning design systems, platforms, and digital experiences.
+            {t.subtitle}
           </motion.p>
 
           <motion.div
@@ -297,7 +316,7 @@ export default function Projects({ projects }: { projects: Project[] }): React.J
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#f5f5f5")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.4)")}
             >
-              View all {projects.length} projects
+              {t.viewAll.replace("{n}", String(projects.length))}
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -308,7 +327,7 @@ export default function Projects({ projects }: { projects: Project[] }): React.J
 
       <div className="flex flex-col" style={{ gap: "1.5rem" }}>
         {featured.map((project, i) => (
-          <ProjectCard key={project.slug} project={project} index={i} />
+          <ProjectCard key={project.slug} project={project} index={i} isMobile={isMobile} />
         ))}
       </div>
     </section>

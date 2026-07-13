@@ -1,5 +1,8 @@
 title: Qvor
-subtitle: Social Network & Messenger
+subtitle:
+    [en] Social Network & Messenger
+    [ru] Социальная сеть и мессенджер
+    [cz] Sociální sítě a komunikační aplikace
 year: 2026
 accent: #ffffff
 tags: Next.js, Tailwind CSS, TypeScript, E2EE (End-to-End Encryption), WebRTC, WebSockets, PostgreSQL
@@ -7,7 +10,11 @@ flip: false
 highlights: Real-time Messaging, Social Feed, Full Stack
 
 description:
-A full-stack social network and messenger with real-time communication, user profiles, and a dynamic content feed.
+    [en] A full-stack social network and messenger with real-time communication, user profiles, and a dynamic content feed.
+    [ru] Полнофункциональная социальная сеть и мессенджер с возможностью общения в режиме реального времени, профилями пользователей и динамической лентой контента.
+    [cz] Komplexní sociální síť a komunikační aplikace s komunikací v reálném čase, uživatelskými profily a dynamickým kanálem s obsahem.
 
 longDescription:
-Qvor is a personal project — a social platform built from scratch. It combines a social feed with direct and group messaging, real-time notifications, and user profiles. The architecture is built around WebSockets for instant communication and a PostgreSQL database for structured social graph data. Every interaction is designed to feel immediate and fluid.
+    [en] Qvor is a personal project — a social platform built from scratch. It combines a social feed with direct and group messaging, real-time notifications, and user profiles. The architecture is built around WebSockets for instant communication and a PostgreSQL database for structured social graph data. Every interaction is designed to feel immediate and fluid.
+    [ru] Qvor — это личный проект — социальная платформа, созданная с нуля. Она сочетает в себе социальную ленту, прямые и групповые сообщения, уведомления в режиме реального времени и профили пользователей. Архитектура платформы построена на основе WebSockets для мгновенного обмена сообщениями и базы данных PostgreSQL для хранения структурированных данных социального графа. Каждое взаимодействие разработано так, чтобы казаться мгновенным и плавным.
+    [cz] Qvor je osobní projekt – sociální platforma vyvinutá zcela od základu. Kombinuje sociální feed s přímými a skupinovými zprávami, oznámeními v reálném čase a uživatelskými profily. Architektura je postavena na technologii WebSockets pro okamžitou komunikaci a na databázi PostgreSQL pro strukturovaná data sociálního grafu. Každá interakce je navržena tak, aby působila bezprostředně a plynule.

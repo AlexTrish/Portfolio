@@ -3,31 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import TextReveal from "@/app/components/ui/TextReveal";
-
-type SkillGroup = { category: string; skills: string[]; detail: string };
-
-const SKILL_GROUPS: SkillGroup[] = [
-  {
-    category: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "Framer Motion", "GSAP", "Three.js"],
-    detail: "Building pixel-perfect, performant interfaces with modern React patterns, server components, and production-grade animation systems.",
-  },
-  {
-    category: "Styling",
-    skills: ["Tailwind CSS", "CSS-in-JS", "SCSS", "Design Systems", "Figma"],
-    detail: "Translating design intent into code — from token-based systems to bespoke editorial layouts that hold up at any viewport.",
-  },
-  {
-    category: "Backend",
-    skills: ["Node.js", "tRPC", "Prisma", "PostgreSQL", "Redis", "GraphQL"],
-    detail: "End-to-end type-safe APIs, real-time data layers, and database schemas that scale without surprises.",
-  },
-  {
-    category: "Infrastructure",
-    skills: ["Vercel", "AWS", "Docker", "CI/CD", "Edge Functions"],
-    detail: "Deploying with confidence — zero-downtime pipelines, edge-optimized delivery, and infrastructure that stays out of the way.",
-  },
-];
+import { useDict } from "@/app/lib/i18n/LocaleContext";
 
 const MARQUEE_ITEMS = [
   "React", "Next.js", "TypeScript", "Framer Motion", "GSAP", "Three.js",
@@ -35,6 +11,8 @@ const MARQUEE_ITEMS = [
   "React", "Next.js", "TypeScript", "Framer Motion", "GSAP", "Three.js",
   "Node.js", "Prisma", "PostgreSQL", "Tailwind", "Figma", "Vercel",
 ];
+
+type SkillGroup = { category: string; skills: string[]; detail: string };
 
 function SkillRow({ group, index }: { group: SkillGroup; index: number }): React.JSX.Element {
   const [hovered, setHovered] = useState(false);
@@ -52,7 +30,6 @@ function SkillRow({ group, index }: { group: SkillGroup; index: number }): React
       className="relative"
       style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
     >
-      {/* Mobile: stacked. Desktop: 3-col grid */}
       <div
         className="flex flex-col sm:grid items-start"
         style={{ gridTemplateColumns: "2rem 9rem 1fr", gap: "0.75rem 1.5rem", padding: "1.5rem 0" }}
@@ -134,6 +111,8 @@ function SkillRow({ group, index }: { group: SkillGroup; index: number }): React
 }
 
 export default function Skills(): React.JSX.Element {
+  const { dict } = useDict();
+  const t = dict.skills;
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
 
@@ -153,16 +132,16 @@ export default function Skills(): React.JSX.Element {
           className="font-caption"
           style={{ marginBottom: "1.5rem" }}
         >
-          03 — Skills
+          {t.label}
         </motion.p>
         <TextReveal>
           <h2
             className="font-display"
             style={{ fontSize: "clamp(2.8rem, 7.5vw, 8.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9, color: "var(--text)" }}
           >
-            Craft &amp;
+            {t.title1}
             <br />
-            <span style={{ color: "rgba(255,255,255,0.15)" }}>Expertise</span>
+            <span style={{ color: "rgba(255,255,255,0.15)" }}>{t.title2}</span>
           </h2>
         </TextReveal>
       </div>
@@ -187,7 +166,7 @@ export default function Skills(): React.JSX.Element {
       </div>
 
       <div style={{ padding: "0 clamp(1.5rem, 6vw, 4rem)" }}>
-        {SKILL_GROUPS.map((group, i) => (
+        {t.groups.map((group, i) => (
           <SkillRow key={group.category} group={group} index={i} />
         ))}
       </div>

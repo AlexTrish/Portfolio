@@ -79,10 +79,17 @@ body {
 
 /* ─── Surfaces ───────────────────────────────────────────── */
 .glass {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255,255,255,0.06);
   border: 1px solid var(--border);
+}
+
+/* backdrop-filter is expensive on mobile GPUs — only apply on hover-capable devices */
+@media (hover: hover) {
+  .glass {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }
 
 /* ─── Accent utilities ───────────────────────────────────── */

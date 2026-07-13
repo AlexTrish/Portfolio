@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import TextReveal from "@/app/components/ui/TextReveal";
 import MagneticButton from "@/app/components/ui/MagneticButton";
+import { useDict } from "@/app/lib/i18n/LocaleContext";
 
 type FormState = { name: string; email: string; message: string };
 type SubmitStatus = "idle" | "loading" | "success" | "error";
@@ -11,14 +12,13 @@ type SubmitStatus = "idle" | "loading" | "success" | "error";
 const INITIAL_FORM: FormState = { name: "", email: "", message: "" };
 
 const SOCIALS = [
-  { label: "GitHub",   href: "https://github.com"   },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Twitter",  href: "https://twitter.com"  },
+  { label: "GitHub",   href: "https://github.com/AlexTrish" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/alextrish/" },
 ];
 
 type RippleItem = { id: number; x: number; y: number };
 
-function CursorLightButton({ loading }: { loading: boolean }): React.JSX.Element {
+function CursorLightButton({ loading, label }: { loading: boolean; label: string }): React.JSX.Element {
   const [lightPos, setLightPos] = useState({ x: 50, y: 50 });
   const [ripples, setRipples] = useState<RippleItem[]>([]);
 
@@ -46,18 +46,11 @@ function CursorLightButton({ loading }: { loading: boolean }): React.JSX.Element
       onClick={handleClick}
       className="relative overflow-hidden rounded-2xl"
       style={{
-        marginTop: "0.5rem",
-        padding: "1.25rem",
-        background: "#111",
-        border: "1px solid rgba(255,255,255,0.08)",
-        color: "#fff",
-        fontSize: "0.875rem",
-        fontWeight: 500,
-        letterSpacing: "0.04em",
-        fontFamily: '"Space Grotesk", sans-serif',
-        opacity: loading ? 0.6 : 1,
-        transition: "opacity 0.2s",
-        width: "100%",
+        marginTop: "0.5rem", padding: "1.25rem",
+        background: "#111", border: "1px solid rgba(255,255,255,0.08)",
+        color: "#fff", fontSize: "0.875rem", fontWeight: 500,
+        letterSpacing: "0.04em", fontFamily: '"Space Grotesk", sans-serif',
+        opacity: loading ? 0.6 : 1, transition: "opacity 0.2s", width: "100%",
       }}
       aria-label="Send message"
     >
@@ -84,15 +77,18 @@ function CursorLightButton({ loading }: { loading: boolean }): React.JSX.Element
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
               style={{ width: "14px", height: "14px", border: "1px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%" }}
             />
-            Sending...
+            {label}
           </>
-        ) : "Send Message →"}
+        ) : label}
       </span>
     </button>
   );
 }
 
 export default function Contact(): React.JSX.Element {
+  const { dict } = useDict();
+  const t = dict.contact;
+
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-8%" });
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
@@ -101,10 +97,10 @@ export default function Contact(): React.JSX.Element {
 
   const validate = (): boolean => {
     const e: Partial<FormState> = {};
-    if (!form.name.trim()) e.name = "Name is required";
-    if (!form.email.trim()) e.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Invalid email";
-    if (!form.message.trim()) e.message = "Message is required";
+    if (!form.name.trim()) e.name = t.fields.nameErr;
+    if (!form.email.trim()) e.email = t.fields.emailErr;
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = t.fields.emailInvalid;
+    if (!form.message.trim()) e.message = t.fields.messageErr;
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -129,17 +125,17 @@ export default function Contact(): React.JSX.Element {
   };
 
   const inputStyle: React.CSSProperties = {
-    width: "100%",
-    background: "transparent",
-    border: "none",
-    borderBottom: "1px solid rgba(255,255,255,0.1)",
-    padding: "1rem 0",
-    fontSize: "0.875rem",
-    color: "rgba(255,255,255,0.8)",
-    fontFamily: '"Space Grotesk", sans-serif',
-    outline: "none",
-    transition: "border-color 0.25s",
+    width: "100%", background: "transparent", border: "none",
+    borderBottom: "1px solid rgba(255,255,255,0.1)", padding: "1rem 0",
+    fontSize: "0.875rem", color: "rgba(255,255,255,0.8)",
+    fontFamily: '"Space Grotesk", sans-serif', outline: "none", transition: "border-color 0.25s",
   };
+
+  const FIELDS = [
+    { key: "name"    as const, label: t.fields.name,    ph: t.fields.namePh    },
+    { key: "email"   as const, label: t.fields.email,   ph: t.fields.emailPh   },
+    { key: "message" as const, label: t.fields.message, ph: t.fields.messagePh },
+  ];
 
   return (
     <section
@@ -166,18 +162,17 @@ export default function Contact(): React.JSX.Element {
               className="font-caption"
               style={{ marginBottom: "1.5rem" }}
             >
-              05 — Contact
+              {t.label}
             </motion.p>
             <TextReveal>
               <h2
                 className="font-display"
                 style={{ fontSize: "clamp(2.8rem, 6.5vw, 7.5rem)", letterSpacing: "-0.04em", lineHeight: 0.9, color: "#f5f5f5" }}
               >
-                Let&apos;s
+                {t.title1}
                 <br />
-                <span style={{ color: "rgba(255,255,255,0.18)" }}>Work</span>
-                <br />
-                Together
+                <span style={{ color: "rgba(255,255,255,0.18)" }}>{t.title2}</span>
+                {t.title3 && <><br />{t.title3}</>}
               </h2>
             </TextReveal>
           </div>
@@ -190,8 +185,7 @@ export default function Contact(): React.JSX.Element {
             style={{ gap: "2rem" }}
           >
             <p className="font-editorial" style={{ fontSize: "0.85rem", lineHeight: 1.75, color: "rgba(255,255,255,0.38)", maxWidth: "22rem" }}>
-              Available for senior roles, freelance projects, and creative collaborations.
-              Let&apos;s build something remarkable.
+              {t.subtitle}
             </p>
 
             <MagneticButton href="mailto:alextrishwork@gmail.com" aria-label="Send email" className="inline-flex items-center" style={{ gap: "1rem" }}>
@@ -243,8 +237,8 @@ export default function Contact(): React.JSX.Element {
                   <path d="M5 13l4 4L19 7" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <p className="font-display" style={{ fontSize: "1.75rem", letterSpacing: "-0.03em", color: "#f5f5f5" }}>Message sent.</p>
-              <p className="font-caption" style={{ textAlign: "center" }}>I&apos;ll get back to you within 24 hours.</p>
+              <p className="font-display" style={{ fontSize: "1.75rem", letterSpacing: "-0.03em", color: "#f5f5f5" }}>{t.successTitle}</p>
+              <p className="font-caption" style={{ textAlign: "center" }}>{t.successSub}</p>
               <button
                 onClick={() => setStatus("idle")}
                 className="font-caption"
@@ -252,29 +246,29 @@ export default function Contact(): React.JSX.Element {
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#f5f5f5")}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.35)")}
               >
-                Send another
+                {t.sendAnother}
               </button>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="flex flex-col" style={{ gap: "2rem" }} aria-label="Contact form">
-              {(["name", "email", "message"] as const).map((field, i) => (
+              {FIELDS.map(({ key, label, ph }, i) => (
                 <motion.div
-                  key={field}
+                  key={key}
                   initial={{ opacity: 0, y: 16 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.35 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col"
                   style={{ gap: "0.5rem" }}
                 >
-                  <label htmlFor={field} className="font-caption" style={{ color: "rgba(255,255,255,0.4)" }}>
-                    {field.charAt(0).toUpperCase() + field.slice(1)}
+                  <label htmlFor={key} className="font-caption" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    {label}
                   </label>
-                  {field === "message" ? (
-                    <textarea id={field} name={field} value={form[field]} onChange={handleChange} placeholder="Tell me about your project..." rows={5} style={{ ...inputStyle, resize: "none" }} aria-invalid={!!errors[field]} />
+                  {key === "message" ? (
+                    <textarea id={key} name={key} value={form[key]} onChange={handleChange} placeholder={ph} rows={5} style={{ ...inputStyle, resize: "none" }} aria-invalid={!!errors[key]} />
                   ) : (
-                    <input id={field} name={field} type={field === "email" ? "email" : "text"} value={form[field]} onChange={handleChange} placeholder={field === "email" ? "your@email.com" : "Your name"} style={inputStyle} aria-invalid={!!errors[field]} autoComplete={field} />
+                    <input id={key} name={key} type={key === "email" ? "email" : "text"} value={form[key]} onChange={handleChange} placeholder={ph} style={inputStyle} aria-invalid={!!errors[key]} autoComplete={key} />
                   )}
-                  {errors[field] && <span className="font-caption" style={{ color: "rgba(248,113,113,0.8)" }}>{errors[field]}</span>}
+                  {errors[key] && <span className="font-caption" style={{ color: "rgba(248,113,113,0.8)" }}>{errors[key]}</span>}
                 </motion.div>
               ))}
 
@@ -283,12 +277,12 @@ export default function Contact(): React.JSX.Element {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
               >
-                <CursorLightButton loading={status === "loading"} />
+                <CursorLightButton loading={status === "loading"} label={status === "loading" ? t.sending : t.send} />
               </motion.div>
 
               {status === "error" && (
                 <p className="font-caption" style={{ color: "rgba(248,113,113,0.8)", textAlign: "center" }}>
-                  Something went wrong. Please try again or email directly.
+                  {t.errorMsg}
                 </p>
               )}
             </form>
