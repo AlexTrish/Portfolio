@@ -113,7 +113,7 @@ function CvContent(): React.JSX.Element {
                 <h1 className="font-display" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", letterSpacing: "-0.04em", lineHeight: 0.9, color: "#f5f5f5", marginBottom: "0.75rem" }}>
                   Alexander
                   <br />
-                  <span style={{ color: "rgba(255,255,255,0.2)" }}>Trish</span>
+                  <span style={{ color: "rgba(255,255,255,0.2)" }}>Trishin</span>
                 </h1>
                 <p style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.45)", fontWeight: 300, marginTop: "1rem" }}>
                   {t.role}
